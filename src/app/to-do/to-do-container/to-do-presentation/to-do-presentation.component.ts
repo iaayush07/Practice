@@ -106,7 +106,7 @@ export class ToDoPresentationComponent implements OnInit {
    */
   showTodo(id: number) {
     if (id === 1) {
-      this.allTodoData = this._todoPresentation;
+      this.allTodoData = this.todo;
     }
     if (id === 2) {
       this.allTodoData = this.todo?.filter((data: any) => data.isActive == false);
@@ -130,6 +130,7 @@ export class ToDoPresentationComponent implements OnInit {
    */
   allClear() {
     localStorage.clear();
+    this.todo = [];
     this.allTodoData = [];
     this.remainingItem();
   }
