@@ -30,7 +30,7 @@ export class ToDoContainerComponent implements OnInit {
   addTodo(newanyTodo: any) {
     this.allTodos.push(newanyTodo);
     this.storeDataInLocalStorage();
-    console.log(this.allTodos);
+    // console.log(this.allTodos);
   }
 
 
@@ -41,9 +41,9 @@ export class ToDoContainerComponent implements OnInit {
     localStorage.setItem('newTodo', JSON.stringify(this.allTodos));
     this.newTodo = this._mainService.maintodosSubject.asObservable();
     const b = JSON.parse(JSON.stringify(localStorage.getItem('newTodo')))
-    console.log(b);
+    // console.log(b);
     const c = JSON.parse('[' + b + ']');
-    console.log(c);
+    // console.log(c);
   }
 
 }
