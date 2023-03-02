@@ -12,7 +12,7 @@ import { ToDoPresenterService } from '../to-do-presenter/to-do-presenter.service
   viewProviders: [ToDoPresenterService]
   // styleUrls: ['./to-do-presentation.component.scss']
 })
-export class ToDoPresentationComponent implements OnInit {
+export class ToDoPresentationComponent implements OnInit, OnChanges {
 
   // Getting value of todos
   @Input() public set todo(a: Todo[] | null) {
@@ -24,6 +24,7 @@ export class ToDoPresentationComponent implements OnInit {
 
   private _todoPresentation: Todo[] | null;
   public allTodoData: any;
+  public activetodo: any;
   public remaining: any;
   public isDarkMode: boolean;
   public isClose: boolean;
@@ -46,6 +47,9 @@ export class ToDoPresentationComponent implements OnInit {
     localStorage.clear();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.clearCompleted();
+  }
   /**
    * theming
    */
@@ -115,23 +119,23 @@ export class ToDoPresentationComponent implements OnInit {
     if (id === 3) {
       this.allTodoData = this.todo?.filter((data: any) => data.isActive == true);
     }
-    this.remainingItem()
+    this.remainingItem();
+    // this.clearCompleted();
   }
 
   /**
    * remaining item show
-   */
+  */
   remainingItem() {
     this.remaining = this.todo?.filter(res => res.isActive == false).length;
   }
 
   /**
    * clear localStorage and all todo task
-   */
-  allClear() {
-    localStorage.clear();
-    this.todo = [];
-    this.allTodoData = [];
-    this.remainingItem();
+  */
+  clearCompleted() {
+    this.activetodo = this.allTodoData?.filter((data: any) => data.isActive == false);
+    // console.log(this.activetodo);
+    this.allTodoData = this.activetodo;
   }
 }
