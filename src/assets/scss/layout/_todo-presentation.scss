@@ -17,6 +17,14 @@ main {
       width: 380px;
     }
 
+    @media (max-width:375px) {
+      width: 350px;
+    }
+
+    @media (max-width:320px) {
+      width: 300px;
+    }
+
     h1 {
       letter-spacing: 15px;
     }
@@ -55,6 +63,10 @@ main {
 
       @media (max-width : 425px) {
         max-height: 460px;
+      }
+
+      @media (max-width : 375px) {
+        max-height: 400px;
       }
 
       .todo-list {
