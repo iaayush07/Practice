@@ -69,6 +69,10 @@ main {
         max-height: 400px;
       }
 
+      @media (max-width : 375px) {
+        max-height: 350px;
+      }
+
       .todo-list {
         .todo-task {
           height: 60px;
