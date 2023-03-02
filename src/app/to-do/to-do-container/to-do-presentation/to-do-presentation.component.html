@@ -1,0 +1,78 @@
+<div class="h-100 position-relative" [ngClass]="isDarkMode == false ? 'bg-white' : 'bg-dark'">
+  <figure>
+    <img src="../../../../assets/images/bg-desktop-light.jpg" alt="background-light"
+      class="background-light d-none d-sm-block" *ngIf="isDarkMode == false">
+    <img src="../../../../assets/images/bg-mobile-light.jpg" alt="background-light"
+      class="background-light d-block d-sm-none " *ngIf="isDarkMode == false">
+    <img src="../../../../assets/images/bg-desktop-dark.jpg" alt="background-dark"
+      class="background-light d-none d-sm-block" *ngIf="isDarkMode == true">
+    <img src="../../../../assets/images/bg-mobile-dark.jpg" alt="background-dark"
+      class="background-light d-block d-sm-none " *ngIf="isDarkMode == true">
+  </figure>
+  <main>
+    <div class="main-wrapper">
+      <div class="d-flex justify-content-between mb-4">
+        <h1 class="text-white">TODO</h1>
+        <div (click)="changeMode()">
+          <img src="../../../../assets/images/icon-moon.svg" class="cursor-pointer" alt="moon-icon"
+            *ngIf="isDarkMode == false">
+          <img src="../../../../assets/images/icon-sun.svg" class="cursor-pointer" alt="sun-icon"
+            *ngIf="isDarkMode == true">
+        </div>
+      </div>
+      <form>
+        <div class="new-todo">
+          <form [formGroup]="todoFormGroup" (ngSubmit)="onSubmit()">
+            <input type="text" class="w-100" placeholder="Create a new todo..."
+              [ngClass]="isDarkMode == false ? 'bg-white text-dark' : 'bg-light text-white'" formControlName="name">
+            <button type="submit" class="d-none"></button>
+            <div class="circle "></div>
+          </form>
+        </div>
+      </form>
+      <div class="example-list shadow-lg todo my-5"
+        [ngClass]="isDarkMode == false ? 'bg-white text-dark' : 'bg-light text-white'" cdkDropList
+        (cdkDropListDropped)="drop($event)">
+        <div cdkDrag class="todo-list" *ngFor="let todo of allTodoData ; let i = index">
+          <div class="d-flex justify-content-between align-items-center todo-task" (mouseenter)="onHover()"
+            (mouseleave)="isClose = !isClose" [ngClass]="isDarkMode == false ? 'bg-white' : 'bg-light'">
+            <div class="d-flex align-items-center">
+              <div class="circle mx-3 d-flex justify-content-center align-items-center cursor-pointer"
+                [ngClass]="todo.isActive ? 'bg-active ' : ''" (click)="onCheck(i)">
+                <img src="../../../../assets/images/icon-check.svg" alt="chekc" *ngIf="todo.isActive">
+              </div>
+              <div [ngClass]="todo.isActive ? 'text-decoration-line-through text-secondary' : ''">
+                {{todo.name}}
+              </div>
+            </div>
+            <ng-container *ngIf="isClose">
+              <figure class="me-3 d-flex align-items-center cursor-pointer" (click)="ondelete(i)">
+                <img src="../../../../assets/images/icon-cross.svg" alt="close" class="close-btn">
+              </figure>
+            </ng-container>
+          </div>
+        </div>
+        <div class="mx-3 d-flex justify-content-between align-items-center footer">
+          <div>
+            <p>{{remaining}} items left</p>
+          </div>
+          <div class="d-none d-sm-block">
+            <a class="me-3" (click)="showTodo(1)">All</a>
+            <a class="me-3" (click)="showTodo(2)">Active</a>
+            <a (click)="showTodo(3)">Completed</a>
+          </div>
+          <div>
+            <a class="me-3" (click)="allClear()">Clear Completed</a>
+          </div>
+        </div>
+      </div>
+      <div class="d-block d-sm-none rounded-2 d-flex justify-content-center align-items-center shadow h-60 my-3"
+        [ngClass]="isDarkMode == false ? 'bg-white text-dark' : 'bg-light text-white'">
+        <a class="me-3" (click)="showTodo(1)">All</a>
+        <a class="me-3" (click)="showTodo(2)">Active</a>
+        <a (click)="showTodo(3)">Completed</a>
+      </div>
+      <p class="text-center text-secondary">Drag and Drop to reorder task</p>
+    </div>
+  </main>
+</div>
